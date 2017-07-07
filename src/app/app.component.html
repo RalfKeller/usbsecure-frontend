@@ -1,0 +1,64 @@
+<h1>
+  {{title}}
+</h1>
+<div *ngIf="notReviewedDevices.length > 0">
+<h2>
+  Neue Geräte
+</h2>
+<table>
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        Bezeichner
+      </th>
+    </tr>
+  </thead>
+  <tr *ngFor="let device of notReviewedDevices">
+    <td>
+      {{device.USBID}}
+    </td>
+    <td>
+      {{device.Bezeichner}}
+    </td>
+    <td>
+        <a class="waves-effect waves-light btn" (click)="Accept(device)">Accept</a>
+    </td>
+    <td>
+        <a class="waves-effect waves-light btn" (click)="Reject(device)">Reject</a>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+<md-spinner *ngIf="!loaded"></md-spinner>
+
+<div *ngIf="loaded && loadedDevices.length >= 1">
+<h2>
+  Akzeptierte Geräte
+</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          USBID
+        </th>
+        <th>
+          Bezeichner
+        </th>
+      </tr>
+    </thead>
+      <tr *ngFor="let device of loadedDevices">
+        <td>          
+
+          <input type="checkbox" id="{{device.USBID}}" (change)="boxChanged($event)"/>
+          <label for="{{device.USBID}}">{{device.USBID}}</label>
+        </td>
+        <td>{{device.Bezeichner}}</td>
+      </tr>
+  </table>
+  <a class="{{buttonClass}}" (click)="removeSelected()">Remove Selected</a>
+</div>
